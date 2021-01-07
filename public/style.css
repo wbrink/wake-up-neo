@@ -109,3 +109,43 @@ section h1 {
   font-size: 16px;
   word-spacing: 5px;
 }
+
+.text {
+  font-size: 20px;
+  white-space: pre-line;
+}
+
+.userInputMatrix {
+  /* will be display flex in javascript */
+  display: none; 
+  margin-top: 10px;
+}
+
+.matrixInput {
+  outline: none;
+  border: none;
+  margin-left: 10px;
+  font-size: 16px;
+  background-color: black;
+  color: rgb(119, 250, 147);
+  caret-color: transparent;
+}
+
+.blinkingCursor {
+  background-color: rgb(119, 250, 147);
+  width: 10px;
+  height: 20px;
+  animation: blink 1500ms infinite step-end;
+  /* margin-left: 10px; */
+
+}
+
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
