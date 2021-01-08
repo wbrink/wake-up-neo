@@ -1,36 +1,66 @@
 
+
+// app that 
 const app = () => {
-  const sentences = ["Wake up, Neo...", "The matrix has you...", "Let me tell you why your here. You know something... you've felt it your entire life. Sluggish animations, unecessary loading screens, slow FCP these issues have brought you here to me. It is the world that has been pulled over your eyes. ","You take the blue pill, the story ends and you wake up in your bed and see the web how they want you to see it... You take the red pill you stay in wonderland and I show you how the web was supposed to be... \n\nEnter blue/red"];
+
+  const stylesheet = document.querySelector("link[rel=stylesheet]");
+  const pillChoice = localStorage.getItem("pill");
+  if (pillChoice === 'red') {
+    stylesheet.remove(); // removes this node
+    document.querySelector('.matrixContainer').remove();
+    return;
+  } else if (pillChoice === "blue") {
+    return;
+  }
+
+
+
+
+  const sentences = ["Wake up, Neo...", "The matrix has you...", "You know something... you've felt it your entire life. Sluggish animations, unecessary loading screens, slow first paints these issues have brought you to this very moment.","You take the blue pill, the story ends and you wake up in your bed and see the web how they want you to see it... You take the red pill you stay in wonderland and I show you how the web was supposed to be...\n\n"];
   const popup = document.querySelector(".matrixContainer");
   const website = document.querySelector(".body");
   const body = document.querySelector("body"); // actual body tag
   const matrixText = document.querySelector(".text");
   const blinkingCursor = document.querySelector(".blinkingCursor");
-  const userInputMatrix = document.querySelector(".userInputMatrix");
+  const userInputContainer = document.querySelector(".userInputMatrix");
   const matrixInput = document.querySelector(".matrixInput");
-
+  const instructions = document.querySelector(".instructions");
+  const clearChoiceButton = document.querySelector('#clearChoice');
   
-  // setTimeout(() => {
-  //   website.classList.add("collapse");
-  //   body.style.overflow = "hidden";
-  //   console.log('outer settimeout');
+  // want to reset the game
+  clearChoiceButton.addEventListener('click', (e) => {
+    localStorage.removeItem('pill');
+  })
 
-  //   // delay on black screen
-  //   setTimeout(() => {
-  //     // get array of delays for each typing of letter
-  //     let delays = makeRandomDurations(sentences[0].length);
-  //     num = 0
-  //     for (let i = 0; i < sentences[0].length; i++) {
-  //       console.log("done", i);
-  //       setTimeout(() => {
-  //         matrixText.textContent += sentences[0][i];
-  //       }, num += (delays[i]*700))
-  //     }
-  //   },2000)
-
-    
-    
-  // }, 5000)
+  matrixInput.addEventListener("keydown", (e) => {
+    if (matrixInput.textContent.length <= 11) {
+      console.log(matrixInput.textContent.length);
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const data = validateChoice(matrixInput.textContent.trim());
+        matrixInput.textContent = "";
+        if (!data) {
+          instructions.textContent = "Error: CommandNotFoundException (Enter 'Blue/'Red')";
+        } else if (data === 'red') {
+          localStorage.setItem('pill', 'red');
+          document.querySelector('.matrixContainer').remove();
+          stylesheet.remove();
+        } else if (data === 'blue') {
+          localStorage.setItem('pill', 'blue');
+          website.classList.remove('collapse');
+          body.style.overflow = "auto";
+        }
+      } else {
+        return true;
+      }
+    } else {
+      if (e.key === "Backspace") {
+        return true;
+      } else {
+        e.preventDefault();
+      }
+    }
+  })
 
   let delay = 5000 //5s
 
@@ -68,7 +98,7 @@ const app = () => {
   //     for (let i = 0; i < sentences[1].length; i++) {
   //       setTimeout(() => {
   //         matrixText.textContent += sentences[1][i];
-  //       }, num += (delays[i]*500))
+  //       }, num += (delays[i]*400))
   //     }
   //   })
       
@@ -97,9 +127,11 @@ const app = () => {
   //   })
 
     // this function will display the prompt
-  timeline(delay += 2000)
+  // timeline(delay += sentences[3].length * .5 * 300)
+  timeline(delay += 1000)
     .then(() => {
-      userInputMatrix.style.display = "flex";
+      userInputContainer.style.display = "flex";
+      instructions.style.display = "block";
       matrixInput.focus();
     })
 }
@@ -132,5 +164,18 @@ function timeline(time) {
      return resolve();
     }, time)
   })
+}
+
+function validateChoice(choice) {
+  choice = choice.toLowerCase();
+  if (choice === 'blue') {
+    return 'blue'
+  }
+  else if (choice === "red") {
+    return 'red'
+  } 
+  else {
+    return false;
+  }
 }
 

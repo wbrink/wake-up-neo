@@ -10,9 +10,11 @@
   <!-- matrix container -->
   <div class="matrixContainer">
     <div class="text"></div>
+
+    <div class="instructions">Enter blue/red</div>
     <div class="userInputMatrix">
       <span>#~</span>
-      <div class="matrixInput" contenteditable="true" onblur="this.focus()"></div>
+      <div class="matrixInput" contenteditable="true" onblur="this.focus()" on onpaste="return false;" ></div>
       <div class="blinkingCursor"></div>
     </div>    
   </div>
@@ -26,7 +28,7 @@
           <li>Home</li>
           <li><a href="#about">About</a></li>
           <li>Services</li>
-          <li>Contact</li>
+          <li><button id="clearChoice">Clear Choice</button></li>
         </ul>
       </nav>
     </header>
