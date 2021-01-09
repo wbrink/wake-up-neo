@@ -88,6 +88,7 @@ const app = () => {
           website.classList.remove("collapse");
           document.querySelector('.matrixContainer').remove();
           stylesheet.setAttribute('href', './public/matrix.css');
+          buttonState = 'red';
         } else if (data === 'blue') {
           slider.style.display = 'block';
           slider.style.backgroundColor = 'rgb(0, 222, 252)';
@@ -95,6 +96,7 @@ const app = () => {
           localStorage.setItem('pill', 'blue');
           website.classList.remove('collapse');
           body.style.overflow = "auto";
+          buttonState = 'blue';
         }
       } else {
         return true;
