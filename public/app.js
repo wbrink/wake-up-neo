@@ -1,12 +1,54 @@
+const stylesheet = document.querySelector("#matrixStylesheet");
+const clearChoiceButton = document.querySelector('#clearChoice');
+const pillChoice = localStorage.getItem("pill");
+const slider = document.querySelector(".slider");
+const button = document.querySelector(".button");
+
+let buttonState;
+
+if (pillChoice === 'red') {
+  slider.style.backgroundColor = "rgb(241, 33, 61)";
+  button.style.transform = "translateX(75px) translateY(-50%)"
+  buttonState = 'red'
+} else if (pillChoice === 'blue') {
+  slider.style.backgroundColor = "rgb(0, 222, 252)";
+  button.style.transform = "translateX(0px) translateY(-50%)"
+  buttonState = 'blue'
+} else {
+  buttonState = 'blue'
+}
 
 
-// app that 
+// want to reset the game
+clearChoiceButton.addEventListener('click', (e) => {
+  console.log("button clicked");
+  localStorage.removeItem('pill');
+  location.reload();
+})
+
+slider.addEventListener('click', (e) => {
+  // change it to red
+  if (buttonState === 'blue') {
+    slider.style.backgroundColor = "rgb(241, 33, 61)";
+    button.style.transform = "translateX(75px) translateY(-50%)"
+    stylesheet.setAttribute('href', './public/matrix.css');
+    buttonState = 'red';
+  }
+  // change it to blue 
+  else if (buttonState == 'red') {
+    slider.style.backgroundColor = "rgb(0, 222, 252)";
+    button.style.transform = "translateX(0px) translateY(-50%)"
+    stylesheet.setAttribute('href', '#');
+    buttonState = 'blue';
+  }
+  
+})
+
+// plays animation of the wake up neo sequence
 const app = () => {
-
-  const stylesheet = document.querySelector("link[rel=stylesheet]");
-  const pillChoice = localStorage.getItem("pill");
+  // check the pill choice
   if (pillChoice === 'red') {
-    stylesheet.remove(); // removes this node
+    stylesheet.setAttribute('href', './public/matrix.css');
     document.querySelector('.matrixContainer').remove();
     return;
   } else if (pillChoice === "blue") {
@@ -16,7 +58,7 @@ const app = () => {
 
 
 
-  const sentences = ["Wake up, Neo...", "The matrix has you...", "You know something... you've felt it your entire life. Sluggish animations, unecessary loading screens, slow first paints these issues have brought you to this very moment.","You take the blue pill, the story ends and you wake up in your bed and see the web how they want you to see it... You take the red pill you stay in wonderland and I show you how the web was supposed to be...\n\n"];
+  const sentences = ["Wake up, Neo...", "The matrix has you...", "You know something... What you know you can't explain but you feel it. You've felt it your entire life. That there's something wrong with the world, it is this feeling that has brought you to me.","You take the blue pill, the story ends and you wake up in your bed and believe whatever you want to believe... You take the red pill you stay in wonderland and I show you how deep the rabbit hole goes\n\n"];
   const popup = document.querySelector(".matrixContainer");
   const website = document.querySelector(".body");
   const body = document.querySelector("body"); // actual body tag
@@ -25,12 +67,9 @@ const app = () => {
   const userInputContainer = document.querySelector(".userInputMatrix");
   const matrixInput = document.querySelector(".matrixInput");
   const instructions = document.querySelector(".instructions");
-  const clearChoiceButton = document.querySelector('#clearChoice');
   
-  // want to reset the game
-  clearChoiceButton.addEventListener('click', (e) => {
-    localStorage.removeItem('pill');
-  })
+  
+  
 
   matrixInput.addEventListener("keydown", (e) => {
     if (matrixInput.textContent.length <= 11) {
@@ -42,10 +81,17 @@ const app = () => {
         if (!data) {
           instructions.textContent = "Error: CommandNotFoundException (Enter 'Blue/'Red')";
         } else if (data === 'red') {
+          slider.style.display = 'block';
+          slider.style.backgroundColor = 'rgb(241, 33, 61)';
+          button.style.transform = "translateX(75px) translateY(-50%)"
           localStorage.setItem('pill', 'red');
+          website.classList.remove("collapse");
           document.querySelector('.matrixContainer').remove();
-          stylesheet.remove();
+          stylesheet.setAttribute('href', './public/matrix.css');
         } else if (data === 'blue') {
+          slider.style.display = 'block';
+          slider.style.backgroundColor = 'rgb(0, 222, 252)';
+          button.style.transform = "translateX(0px) translateY(-50%)"
           localStorage.setItem('pill', 'blue');
           website.classList.remove('collapse');
           body.style.overflow = "auto";

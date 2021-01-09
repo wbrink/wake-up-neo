@@ -10,6 +10,7 @@ html,body {
   height: 100%;
   width: 100%;
   font-family: 'Roboto Mono', monospace;
+  scroll-behavior: smooth;
 }
 
 .body {
@@ -74,7 +75,7 @@ nav > ul > li > a {
 }
 
 .about {
-  height: 200%;
+  height: 50vh;
 }
 
 section {
@@ -144,6 +145,36 @@ section h1 {
   animation: blink 1500ms infinite step-end;
   /* margin-left: 10px; */
 
+}
+
+.slider {
+  width: 75px;
+  height: 20px;
+  background-color:rgb(0, 222, 252);
+  /* background-color:rgb(241, 33, 61); */
+  box-shadow: 1px 1px 2px rgb(255, 255, 255);
+  /* pill */
+  border-radius: 9999px; 
+  position: relative;
+  transition: background-color .4s ease;
+}
+
+.button {
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  z-index: 1;
+  background-color: white;
+  transition: transform .3s ease;
+}
+
+#clearChoice {
+  padding: 5px;
+  margin-top: -3px;
 }
 
 

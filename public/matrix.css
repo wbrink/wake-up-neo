@@ -1,0 +1,14 @@
+*  {
+  font-family: Courier !important;
+  color: rgb(119, 250, 147) !important;
+  /* background: black !important; */
+}
+
+#clearChoice {
+  color: black !important;
+}
+
+
+header, section, .about, .hero {
+  background: black !important;
+}
