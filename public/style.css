@@ -60,12 +60,16 @@ nav > ul > li > a {
 }
 
 .hero {
-  height: 60%;
+  height: 70%;
   width: 100%;
   background: linear-gradient(to right, #007991, #78ffd6);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
+  background-image: url("./pexels-burst-373965.jpg");
+  background-size: cover;
+  /* creates parallax effect */
+  background-attachment: fixed;
 }
 
 .heroMessage {
