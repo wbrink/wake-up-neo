@@ -53,6 +53,7 @@ nav {
   display: flex;
   list-style: none;
   justify-content: space-evenly;
+  width: 60%;
   transition: transform .5s ease-in-out;
 }
 
@@ -251,8 +252,16 @@ section h1 {
     align-items: center;
   }
 
+
+  .hero {
+    margin-top: 80px;
+    height: 60%;
+  }
+
   header {
     position: fixed;
+    top: 0;
+    left: 0;
   }
 
 
