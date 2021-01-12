@@ -5,17 +5,22 @@ const slider = document.querySelector(".slider");
 const button = document.querySelector(".button");
 const hero = document.querySelector(".hero");
 const nav = document.querySelector("nav");
+const body = document.querySelector("body"); // actual body tag
+const heroMessage = document.querySelector(".heroMessage");
+let grids = document.querySelectorAll(".heroGrid");
 
 let buttonState;
 
 if (pillChoice === 'red') {
-  slider.style.backgroundColor = "rgb(241, 33, 61)";
-  button.style.transform = "translateX(75px) translateY(-50%)"
-  buttonState = 'red'
+  // slider.style.backgroundColor = "rgb(241, 33, 61)";
+  // button.style.transform = "translateX(75px) translateY(-50%)"
+  // buttonState = 'red'
+  redPill();
 } else if (pillChoice === 'blue') {
-  slider.style.backgroundColor = "rgb(0, 222, 252)";
-  button.style.transform = "translateX(0px) translateY(-50%)"
-  buttonState = 'blue'
+  // slider.style.backgroundColor = "rgb(0, 222, 252)";
+  // button.style.transform = "translateX(0px) translateY(-50%)"
+  // buttonState = 'blue'
+  bluePill();
 } else {
   buttonState = 'blue'
 }
@@ -42,28 +47,43 @@ slider.addEventListener('click', (e) => {
 
 
 // anime js animations
-const animations = () => {
+function animations() {
   var t1 = anime.timeline({
-    easing: 'easeOutExpo',
+    easing: 'easeOutQuad',
+    // easing: 'easeOutElastic(1, .8)',
     duration: 750,
     delay: 200
   })
 
 
   t1.add({
-    targets: nav,
+    targets: [nav],
     opacity: [0,1],
     translateX: [-100, 0]
   })
+  .add({
+    targets: hero,
+    opacity: [0,1],
+    translateY: [75, 0]
+  }, "-=500")
+  .add({
+    targets: document.querySelector(".heroMessage"),
+    opacity: [0,1],
+    translateX: [0, '-50%'],
+    duration: 1000,
+    easing: "easeOutQuint"
+  },'-=500')
+  
+  console.log("done");
 }
 
 
 // plays animation of the wake up neo sequence
-const matrixApp = () => {
+function matrixApp() {
   const sentences = ["Wake up, Neo...", "The matrix has you...", "You know something... What you know you can't explain but you feel it. You've felt it your entire life. That there's something wrong with the world, it is this feeling that has brought you to me.","You take the blue pill, the story ends and you wake up in your bed and believe whatever you want to believe... You take the red pill you stay in wonderland and I show you how deep the rabbit hole goes\n\n"];
   const popup = document.querySelector(".matrixContainer");
   const website = document.querySelector(".body");
-  const body = document.querySelector("body"); // actual body tag
+  // const body = document.querySelector("body"); // actual body tag
   const matrixText = document.querySelector(".text");
   const blinkingCursor = document.querySelector(".blinkingCursor");
   const userInputContainer = document.querySelector(".userInputMatrix");
@@ -140,7 +160,7 @@ const matrixApp = () => {
     })
 
   // the matrix has you (value is guess and checked since it has to wait for the set time outs from last timeline)
-  timeline(delay += 5000)
+  timeline(delay += 4000)
     .then(() => {
       matrixText.textContent = "";
       // get array of delays for each typing of letter
@@ -201,7 +221,7 @@ function makeRandomDurations(sentenceLength) {
   for (let i = 0; i<sentenceLength; i++) {
     while(true) {
       const rand = Math.random();
-      if (rand <= .5 && rand >= .08 ) {
+      if (rand <= .7) {
         delays.push(rand);
         break;
       }
@@ -240,6 +260,26 @@ function redPill() {
   button.style.transform = "translateX(75px) translateY(-50%)"
   stylesheet.setAttribute('href', './public/matrix.css');
   buttonState = 'red';
+  body.style.overflow = "auto"
+
+  anime({
+    targets: ".heroGrid",
+    opacity: [0, 1],
+    delay: anime.stagger(100),
+    easing: "easeInQuad"
+  })
+  anime({
+    targets: heroMessage,
+    opacity: [0, 1],
+    easing: "easeInQuad",
+    delay: 750
+  })
+  anime({
+    targets: heroMessage, 
+    color: ["rgb(119, 250, 147)","rgb(0,0,0)"],
+    easing: "easeInQuad",
+    delay: 1000
+  })
 }
 
 // changes the slider to blue and sets the button at right position
@@ -248,5 +288,19 @@ function bluePill() {
   button.style.transform = "translateX(0px) translateY(-50%)"
   stylesheet.setAttribute('href', '#');
   buttonState = 'blue';
+  body.style.overflow = "auto";
+
+  grids.forEach((grid) => {
+    grid.style.opacity = 0;
+  })
+
+  animations();
+  // anime({
+  //   targets: ".heroGrid",
+  //   opacity: [1, 0],
+  //   delay: anime.stagger(100),
+  //   easing: "easeInQuad",
+  //   duration: 800
+  // })
 }
 

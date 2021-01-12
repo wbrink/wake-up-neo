@@ -1,7 +1,11 @@
 *  {
   font-family: Courier !important;
-  color: rgb(119, 250, 147) !important;
+  color: rgb(119, 250, 147);
   /* background: black !important; */
+}
+
+nav > ul > li > a {
+  color:rgb(119, 250, 147);
 }
 
 #clearChoice {
