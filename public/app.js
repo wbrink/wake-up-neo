@@ -23,6 +23,9 @@ if (pillChoice === 'red') {
   bluePill();
 } else {
   buttonState = 'blue'
+  grids.forEach((grid) => {
+    grid.style.opacity = 0;
+  })
 }
 
 
@@ -294,7 +297,7 @@ function bluePill() {
     grid.style.opacity = 0;
   })
 
-  animations();
+  // animations();
   // anime({
   //   targets: ".heroGrid",
   //   opacity: [1, 0],
