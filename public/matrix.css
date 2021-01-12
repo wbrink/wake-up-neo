@@ -12,6 +12,14 @@ nav > ul > li > a {
   color: black !important;
 }
 
+.nav-list {
+  background-color: black;
+}
+
+.heroMessage {
+  opacity: 0;
+}
+
 
 header, section, .about, .hero {
   background: black !important;

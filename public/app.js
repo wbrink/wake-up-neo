@@ -13,6 +13,22 @@ let hamburger = document.querySelector("#hamburger");
 let navList = document.querySelector(".nav-list");
 let hamburgerState = "closed";
 
+
+// red pill animation
+var animation = anime.timeline({});
+animation.add({
+  targets: ".heroGrid",
+  opacity: [0, 1],
+  delay: anime.stagger(100),
+  easing: "easeInQuad"
+})
+.add({
+  targets: heroMessage,
+  opacity: [0, 1],
+  color: ['rgb(255, 255, 255)', 'rgb(0,0,0)'],
+  easing: "easeInQuad",
+}, '-=900')
+
 let buttonState; // 
 
 // listen for hamburger clicks
@@ -273,36 +289,26 @@ function validateChoice(choice) {
   }
 }
 
+
 // changes the slider to red and sets the button at right position
 function redPill() {
+  heroMessage.style.opacity = 0;
   slider.style.backgroundColor = 'rgb(241, 33, 61)';
   button.style.transform = "translateX(75px) translateY(-50%)"
   stylesheet.setAttribute('href', './public/matrix.css');
   buttonState = 'red';
-  body.style.overflow = "auto"
 
-  anime({
-    targets: ".heroGrid",
-    opacity: [0, 1],
-    delay: anime.stagger(100),
-    easing: "easeInQuad"
-  })
-  anime({
-    targets: heroMessage,
-    opacity: [0, 1],
-    easing: "easeInQuad",
-    delay: 750
-  })
-  anime({
-    targets: heroMessage, 
-    color: ["rgb(119, 250, 147)","rgb(0,0,0)"],
-    easing: "easeInQuad",
-    delay: 1000
-  })
+  animation.play();
 }
 
 // changes the slider to blue and sets the button at right position
 function bluePill() {
+  console.log("blue Pill")
+  animation.restart();
+  animation.pause();
+  heroMessage.style.color = 'rgb(0,0,0)'; // having to restart the font color after the animation from redPill();
+  heroMessage.style.opacity = 1; // can counter animate this
+  console.log("paused");
   slider.style.backgroundColor = 'rgb(0, 222, 252)';
   button.style.transform = "translateX(0px) translateY(-50%)"
   stylesheet.setAttribute('href', '#');
@@ -312,14 +318,5 @@ function bluePill() {
   grids.forEach((grid) => {
     grid.style.opacity = 0;
   })
-
-  // animations();
-  // anime({
-  //   targets: ".heroGrid",
-  //   opacity: [1, 0],
-  //   delay: anime.stagger(100),
-  //   easing: "easeInQuad",
-  //   duration: 800
-  // })
 }
 
