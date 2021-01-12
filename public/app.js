@@ -200,7 +200,7 @@ function matrixApp() {
       }
     })
 
-  timeline(delay += sentences[3].length * .5 * 300)
+  timeline(delay += sentences[3].length * .4 * 300)
   // timeline(delay += 1000)
     .then(() => {
       userInputContainer.style.display = "flex";

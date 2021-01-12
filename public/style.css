@@ -11,8 +11,6 @@ html,body {
   width: 100%;
   font-family: 'Roboto Mono', monospace;
   scroll-behavior: smooth;
-  /* background-color: black; */
-  z-index: -9999;
 }
 
 .body {
@@ -21,7 +19,6 @@ html,body {
   clip-path: circle(150%);
   opacity: 1;
   transition: clip-path .6s ease-in-out, opacity .5s ease-in-out;
-  overflow-x: hidden;
 }
 
 .body.collapse {
@@ -77,6 +74,7 @@ nav > ul > li > a {
   position: relative;
   grid-template-columns: 1fr;
   /* grid-template-rows: repeat(8, 1fr); */
+  overflow: hidden;
 }
 
 .heroGrid {
