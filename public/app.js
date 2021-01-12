@@ -9,7 +9,23 @@ const body = document.querySelector("body"); // actual body tag
 const heroMessage = document.querySelector(".heroMessage");
 let grids = document.querySelectorAll(".heroGrid");
 
-let buttonState;
+let hamburger = document.querySelector("#hamburger");
+let navList = document.querySelector(".nav-list");
+let hamburgerState = "closed";
+
+let buttonState; // 
+
+// listen for hamburger clicks
+hamburger.addEventListener('click', (e) => {
+  if (hamburgerState === "closed") {
+    // then open the menu
+    navList.style.transform = "translateX(200%)";
+    hamburgerState = "open";
+  } else {
+    navList.style.transform = "translateX(0)";
+    hamburgerState = "closed";
+  }
+})
 
 if (pillChoice === 'red') {
   // slider.style.backgroundColor = "rgb(241, 33, 61)";

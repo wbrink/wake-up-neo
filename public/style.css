@@ -16,7 +16,7 @@ html,body {
 .body {
   height: 100%;
   width: 100%;
-  clip-path: circle(150%);
+  clip-path: circle(300%);
   opacity: 1;
   transition: clip-path .6s ease-in-out, opacity .5s ease-in-out;
 }
@@ -28,7 +28,7 @@ html,body {
 
 header {
   width: 100%;
-  height: 8%;
+  height: 80px;
   background-color: rgb(32, 32, 32);
   display: flex;
   align-items: center;
@@ -37,26 +37,42 @@ header {
 
 nav {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
   justify-self: start;
   margin-left: 40px;
   height: 20px;
-  width: 10px;
 }
 
-ul {
+.nav-list {
   display: flex;
   list-style: none;
   justify-content: space-evenly;
+  transition: transform .5s ease-in-out;
 }
 
 nav > ul > li > a {
   text-decoration: none;
   color: rgb(236, 236, 236);
+}
+
+#hamburger {
+  display: none;
+  /* height: 40px; */
+  width: 40px;
+  fill: white;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: fill .3s ease;
+}
+
+#hamburger:hover {
+  fill:rgb(119, 250, 147);
 }
 
 .hero {
@@ -75,12 +91,14 @@ nav > ul > li > a {
   grid-template-columns: 1fr;
   /* grid-template-rows: repeat(8, 1fr); */
   overflow: hidden;
+  z-index: 5;
 }
 
 .heroGrid {
   height: 100%;
   width: 100%;
   background-color: rgb(58, 175, 84);
+  z-index: 7;
 }
 
 .heroMessage {
@@ -91,6 +109,8 @@ nav > ul > li > a {
   color: Black;
   font-size: 42px;
   z-index: 9999;
+  width: 100%;
+  text-align: center;
 }
 
 .about {
@@ -212,5 +232,35 @@ section h1 {
   }
   50% {
     opacity: 1;
+  }
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .nav-list {
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    z-index: 9999;
+    width: 50%;
+    height: 92vh;
+    background-color: rgb(32, 32, 32);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  header {
+    position: fixed;
+  }
+
+
+  .hero {
+    /* display:none; */
+    z-index: -1;
+  }
+  #hamburger {
+    display: block;
   }
 }
