@@ -15,7 +15,7 @@ let hamburgerState = "closed";
 
 
 // red pill animation
-var animation = anime.timeline({});
+var animation = anime.timeline({autoplay: false});
 animation.add({
   targets: ".heroGrid",
   opacity: [0, 1],
@@ -31,27 +31,40 @@ animation.add({
 
 let buttonState; // 
 
+
+// media query for 768px
+let mobileQuery = window.matchMedia("(max-width: 1024px)");
+mobileQuery.addEventListener("change", (e) => {
+  if (e.matches) {
+    console.log("changed to mobile");
+    navList.style.transform = "translateX(-100%)";
+  } 
+})
+
+let desktopQuery = window.matchMedia("(min-width: 1025px)");
+desktopQuery.addEventListener("change", (e) => {
+  if (e.matches) {
+    navList.style.transform = "translateX(0%)";
+    hamburgerState = "closed";
+  }
+})
+
+
 // listen for hamburger clicks
 hamburger.addEventListener('click', (e) => {
   if (hamburgerState === "closed") {
     // then open the menu
-    navList.style.transform = "translateX(200%)";
+    navList.style.transform = "translateX(0%)";
     hamburgerState = "open";
   } else {
-    navList.style.transform = "translateX(0)";
+    navList.style.transform = "translateX(-100%)";
     hamburgerState = "closed";
   }
 })
 
 if (pillChoice === 'red') {
-  // slider.style.backgroundColor = "rgb(241, 33, 61)";
-  // button.style.transform = "translateX(75px) translateY(-50%)"
-  // buttonState = 'red'
   redPill();
 } else if (pillChoice === 'blue') {
-  // slider.style.backgroundColor = "rgb(0, 222, 252)";
-  // button.style.transform = "translateX(0px) translateY(-50%)"
-  // buttonState = 'blue'
   bluePill();
 } else {
   buttonState = 'blue'
@@ -104,7 +117,9 @@ function animations() {
   .add({
     targets: document.querySelector(".heroMessage"),
     opacity: [0,1],
+    color: "rgb(0,0,0)",
     translateX: [0, '-50%'],
+    translateY: ['-50%','-50%'],
     duration: 1000,
     easing: "easeOutQuint"
   },'-=500')
@@ -115,7 +130,7 @@ function animations() {
 
 // plays animation of the wake up neo sequence
 function matrixApp() {
-  const sentences = ["Wake up, Neo...", "The matrix has you...", "You know something... What you know you can't explain but you feel it. You've felt it your entire life. That there's something wrong with the world, it is this feeling that has brought you to me.","You take the blue pill, the story ends and you wake up in your bed and believe whatever you want to believe... You take the red pill you stay in wonderland and I show you how deep the rabbit hole goes\n\n"];
+  const sentences = ["Wake up, Neo...", "The matrix has you...", "You take the blue pill, the story ends and you wake up in your bed and believe whatever you want to believe... You take the red pill you stay in wonderland and I show you how deep the rabbit hole goes\n\n"];
   const popup = document.querySelector(".matrixContainer");
   const website = document.querySelector(".body");
   // const body = document.querySelector("body"); // actual body tag
@@ -145,15 +160,20 @@ function matrixApp() {
         if (!data) {
           instructions.textContent = "Error: CommandNotFoundException (Enter 'Blue/'Red')";
         } else if (data === 'red') {
+          document.querySelector('.matrixContainer').remove();
+          website.classList.remove("collapse");
           redPill();
           localStorage.setItem('pill', 'red');
-          website.classList.remove("collapse");
-          document.querySelector('.matrixContainer').remove();
+          
+          
         } else if (data === 'blue') {
+          document.querySelector('.matrixContainer').remove();
           slider.style.display = 'block';
-          bluePill();        
-          localStorage.setItem('pill', 'blue');
           website.classList.remove('collapse');
+          bluePill();        
+          
+          localStorage.setItem('pill', 'blue');
+          
           body.style.overflow = "auto";
         }
       } else {
@@ -168,18 +188,20 @@ function matrixApp() {
     }
   })
 
-  let delay = 5000 //5s
+  let delay = 7000 //5s
 
   // hide the website which shows the matrix popup in the background
   timeline(delay)
     .then((data) => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
       website.classList.add("collapse");
       body.style.overflow = "hidden";
       console.log('outer settimeout');
     });
 
-  // leave black for 2 seconds then start typing letters
-  timeline(delay += 2000)
+  // leave black for 3 seconds then start typing letters
+  timeline(delay += 3000)
     .then(() => {
       // get array of delays for each typing of letter
       let delays = makeRandomDurations(sentences[0].length);
@@ -195,7 +217,7 @@ function matrixApp() {
     })
 
   // the matrix has you (value is guess and checked since it has to wait for the set time outs from last timeline)
-  timeline(delay += 4000)
+  timeline(delay += 7000)
     .then(() => {
       matrixText.textContent = "";
       // get array of delays for each typing of letter
@@ -208,6 +230,7 @@ function matrixApp() {
       }
     })
       
+  //show blue pill red pill choice text
   timeline(delay += 7000)
     .then(() => {
       matrixText.textContent = "";
@@ -216,23 +239,12 @@ function matrixApp() {
       for (let i = 0; i < sentences[2].length; i++) {
         setTimeout(() => {
           matrixText.textContent += sentences[2][i];
-        }, num += (delays[i]*300))
+        }, num += (delays[i]*200))
       }
     })
 
-  timeline(delay += (sentences[2].length * .5 * 300))
-    .then(() => {
-      matrixText.textContent = "";
-      let delays = makeRandomDurations(sentences[3].length);
-      num = 0
-      for (let i = 0; i < sentences[3].length; i++) {
-        setTimeout(() => {
-          matrixText.textContent += sentences[3][i];
-        }, num += (delays[i]*300))
-      }
-    })
-
-  timeline(delay += sentences[3].length * .4 * 300)
+  // show prompt
+  timeline(delay += 24000)
   // timeline(delay += 1000)
     .then(() => {
       userInputContainer.style.display = "flex";
@@ -256,7 +268,7 @@ function makeRandomDurations(sentenceLength) {
   for (let i = 0; i<sentenceLength; i++) {
     while(true) {
       const rand = Math.random();
-      if (rand <= .7) {
+      if (rand <= .8 || rand >=.2) {
         delays.push(rand);
         break;
       }

@@ -20,7 +20,31 @@ nav > ul > li > a {
   opacity: 0;
 }
 
+.service > p {
+  transition: color .3s ease-in;
+}
+
+.serviceIcon {
+  fill: rgb(119, 250, 147);
+  transition: all .3s ease-in;
+}
+
+
+.service:hover {
+  background: #3AAF54;
+}
+
+.service:hover .serviceIcon {
+  fill: black;
+}
+
+.service:hover p {
+  color: black;
+}
+
 
 header, section, .about, .hero {
   background: black !important;
 }
+
+
