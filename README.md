@@ -4,7 +4,7 @@ Fictional website for the software company that Neo works for in the Matrix. Aft
 
 ## Technologies Used
 * HTML
-* Vanilla Javascript
+* Javascript
 * CSS
 * Webpack 
 * Anime.js 
