@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
+:root {
+  --vh: 1vh;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -295,7 +299,7 @@ footer {
     transform: translateX(-100%);
     z-index: 9999;
     width: 50%;
-    height: calc(100%-80px);
+    height: calc((var(--vh) * 100vh) - 80px);
     background-color: rgb(32, 32, 32);
     display: flex;
     flex-direction: column;
