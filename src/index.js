@@ -249,7 +249,10 @@ function matrixApp() {
     .then(() => {
       userInputContainer.style.display = "flex";
       instructions.style.display = "block";
+
       matrixInput.focus();
+
+      // if we are in mobile view then we need to scroll up to see the prompt
     })
 }
 
@@ -309,6 +312,7 @@ function redPill() {
   button.style.transform = "translateX(75px) translateY(-50%)"
   stylesheet.setAttribute('href', './public/matrix.css');
   buttonState = 'red';
+  body.style.overflow = "auto";
 
   animation.play();
 }
