@@ -360,8 +360,12 @@ footer {
   }
 
   /* center the last icon for services */
-  .service:last-child {
+  /* .service:last-child {
     grid-column: 1/3;
-    place-items: center;
+    place-self: center;
+  } */
+  .service {
+    padding: 5px;
+    
   }
 }
