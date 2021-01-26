@@ -14,6 +14,19 @@ let navList = document.querySelector(".nav-list");
 let hamburgerState = "closed";
 
 
+
+document.body.scrollTop = 0;
+document.documentElement.scrollTop = 0;
+
+// if mobile
+if (window.innerWidth < 1025) {
+  // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+  let vh = window.innerHeight * 0.01;
+  // Then we set the value in the --vh custom property to the root of the document
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+
 // red pill animation
 var animation = anime.timeline({autoplay: false});
 animation.add({
@@ -54,9 +67,12 @@ desktopQuery.addEventListener("change", (e) => {
   }
 })
 
-// // listen to window resize
+// // listen to window resize for the navbar
 window.addEventListener('resize', (e) => {
-  
+  // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+  let vh = window.innerHeight * 0.01;
+  // Then we set the value in the --vh custom property to the root of the document
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
 })
 
 
@@ -174,7 +190,7 @@ function matrixApp() {
           website.classList.remove("collapse");
           redPill();
           localStorage.setItem('pill', 'red');
-          
+          body.style.overflow = "auto";
           
         } else if (data === 'blue') {
           document.querySelector('.matrixContainer').remove();
@@ -317,6 +333,8 @@ function validateChoice(choice) {
 
 // changes the slider to red and sets the button at right position
 function redPill() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
   heroMessage.style.opacity = 0;
   slider.style.backgroundColor = 'rgb(241, 33, 61)';
   button.style.transform = "translateX(75px) translateY(-50%)"
@@ -329,6 +347,8 @@ function redPill() {
 
 // changes the slider to blue and sets the button at right position
 function bluePill() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
   console.log("blue Pill")
   animation.restart();
   animation.pause();

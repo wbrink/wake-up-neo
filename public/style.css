@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
-:root {
-  --vh: 1vh;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +11,6 @@ html,body {
   width: 100%;
   font-family: 'Roboto Mono', monospace;
   scroll-behavior: smooth;
-
 }
 
 body {
@@ -28,6 +23,7 @@ body {
   clip-path: circle(200%);
   opacity: 1;
   transition: clip-path 1.5s ease-in-out, opacity 1.5s ease-in-out ;
+  overflow-x: hidden;
 }
 
 .body.collapse {
@@ -143,7 +139,9 @@ nav > ul > li > a {
 
 section {
   width: 100%;
+  padding: 10px;
   padding-bottom: 30px;
+  
 }
 
 section h1 {
@@ -172,7 +170,7 @@ section h1 {
 
 .service:hover {
   background: rgb(43, 43, 43);
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .serviceIcon {
@@ -278,6 +276,7 @@ footer {
   text-align: center;
   font-size: 12px;
   color: white;
+  padding: 10px;
 }
 
 
@@ -299,7 +298,7 @@ footer {
     transform: translateX(-100%);
     z-index: 9999;
     width: 50%;
-    height: calc((var(--vh) * 100vh) - 80px);
+    height: calc((var(--vh) * 100) - 80px);
     background-color: rgb(32, 32, 32);
     display: flex;
     flex-direction: column;
@@ -351,5 +350,18 @@ footer {
 
   .serviceContainer {
     width: 90%;
+  }
+}
+
+/* for mobile screens */
+@media only screen and (max-width: 520px) {
+  .body {
+    clip-path: circle(400%);
+  }
+
+  /* center the last icon for services */
+  .service:last-child {
+    grid-column: 1/3;
+    place-items: center;
   }
 }
