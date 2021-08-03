@@ -157,6 +157,7 @@ function animations() {
 // plays animation of the wake up neo sequence
 function matrixApp() {
   const sentences = ["Wake up, Neo...", "The matrix has you...", "You take the blue pill, the story ends and you wake up in your bed and believe whatever you want to believe... You take the red pill you stay in wonderland and I show you how deep the rabbit hole goes\n\n"];
+//   const sentences = ["Wake up, Neo...", "The matrix has you..."]
   const popup = document.querySelector(".matrixContainer");
   const website = document.querySelector(".body");
   // const body = document.querySelector("body"); // actual body tag
@@ -214,7 +215,7 @@ function matrixApp() {
     }
   })
 
-  let delay = 7000 //5s
+  let delay = 5000 //5s
 
   // hide the website which shows the matrix popup in the background
   timeline(delay)
@@ -235,7 +236,7 @@ function matrixApp() {
       for (let i = 0; i < sentences[0].length; i++) {
         setTimeout(() => {
           matrixText.textContent += sentences[0][i];
-        }, num += (delays[i]*500))
+        }, num += (delays[i]*400))
       }
     })
     .then((data) => {
@@ -243,7 +244,7 @@ function matrixApp() {
     })
 
   // the matrix has you (value is guess and checked since it has to wait for the set time outs from last timeline)
-  timeline(delay += 7000)
+  timeline(delay += 6000)
     .then(() => {
       matrixText.textContent = "";
       // get array of delays for each typing of letter
@@ -252,25 +253,25 @@ function matrixApp() {
       for (let i = 0; i < sentences[1].length; i++) {
         setTimeout(() => {
           matrixText.textContent += sentences[1][i];
-        }, num += (delays[i]*400))
+        }, num += (delays[i]*300))
       }
     })
       
-  //show blue pill red pill choice text
+  //show blue pill red pill choice text (no typing animation due to hwo long it takes)
   timeline(delay += 7000)
     .then(() => {
-      matrixText.textContent = "";
-      let delays = makeRandomDurations(sentences[2].length);
-      num = 0
-      for (let i = 0; i < sentences[2].length; i++) {
-        setTimeout(() => {
-          matrixText.textContent += sentences[2][i];
-        }, num += (delays[i]*200))
-      }
+        matrixText.textContent = sentences[2];
+        anime({
+            targets: matrixText,
+            opacity: [0,1],
+            translateY: [0, 0],
+            duration: 1000,
+            easing: "easeOutExpo"
+        })
     })
 
-  // show prompt
-  timeline(delay += 24000)
+  // show prompt (blue or red)
+  timeline(delay += 2000)
   // timeline(delay += 1000)
     .then(() => {
       userInputContainer.style.display = "flex";
@@ -287,7 +288,8 @@ function matrixApp() {
 
 
 
-animations();
+//  
+animations(); 
 matrixApp();
 
 
@@ -302,8 +304,8 @@ function makeRandomDurations(sentenceLength) {
         break;
       }
     }
-    const rand = Math.random();
-    delays.push(rand);
+    // const rand = Math.random();
+    // delays.push(rand);
   } 
   return delays;
 }
